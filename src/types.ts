@@ -23,104 +23,74 @@ export interface Episode {
 export const MOVIES_DATA: Movie[] = [
   {
     id: '1',
-    title: 'O Cavaleiro das Trevas',
-    description: 'Quando a ameaça conhecida como o Coringa emerge de seu passado misterioso, ele causa estragos e caos nas pessoas de Gotham.',
-    thumbnail: 'https://picsum.photos/seed/batman/800/450',
-    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    category: 'Ação',
-    type: 'movie',
-    rating: 9.0,
-    year: 2008
-  },
-  {
-    id: '2',
-    title: 'Interestelar',
-    description: 'Uma equipe de exploradores viaja através de um buraco de minhoca no espaço na tentativa de garantir a sobrevivência da humanidade.',
-    thumbnail: 'https://picsum.photos/seed/interstellar/800/450',
-    videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+    title: 'Sintel',
+    description: 'Uma jovem chamada Sintel procura por seu amigo, um bebê dragão chamado Scales. Uma jornada épica de amizade e perda produzida pela Blender Foundation.',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Sintel_poster.jpg/800px-Sintel_poster.jpg',
+    videoUrl: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4', // Using a reliable blender link
     category: 'Ficção Científica',
     type: 'movie',
-    rating: 8.6,
-    year: 2014
-  },
-  {
-    id: '3',
-    title: 'Stranger Things',
-    description: 'Quando um menino desaparece, sua mãe, um chefe de polícia e seus amigos devem enfrentar forças aterrorizantes para trazê-lo de volta.',
-    thumbnail: 'https://picsum.photos/seed/stranger/800/450',
-    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    category: 'Suspense',
-    type: 'series',
-    rating: 8.7,
-    year: 2016,
-    episodes: [
-      { id: 'e1', title: 'Capítulo Um: O Desaparecimento de Will Byers', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '48m' },
-      { id: 'e2', title: 'Capítulo Dois: A Estranha da Maple Street', videoUrl: 'https://www.w3schools.com/html/movie.mp4', duration: '55m' },
-      { id: 'e3', title: 'Capítulo Três: Caras de Natal', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '51m' }
-    ]
-  },
-  {
-    id: '4',
-    title: 'A Origem',
-    description: 'Um ladrão que rouba segredos corporativos através do uso da tecnologia de compartilhamento de sonhos recebe a tarefa inversa de plantar uma ideia na mente de um C.E.O.',
-    thumbnail: 'https://picsum.photos/seed/inception/800/450',
-    videoUrl: 'https://www.w3schools.com/html/movie.mp4',
-    category: 'Ação',
-    type: 'movie',
-    rating: 8.8,
+    rating: 8.2,
     year: 2010
   },
   {
-    id: '5',
-    title: 'The Last of Us',
-    description: 'Após uma pandemia global destruir a civilização, um sobrevivente endurecido assume o comando de uma menina de 14 anos que pode ser a última esperança da humanidade.',
-    thumbnail: 'https://picsum.photos/seed/tlou/800/450',
-    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    category: 'Drama',
-    type: 'series',
+    id: '2',
+    title: 'Tears of Steel',
+    description: 'Em um futuro distópico, um grupo de guerreiros e cientistas tenta salvar o mundo de robôs gigantes usando tecnologia antiga e memórias do passado.',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Tears_of_Steel_poster.jpg/800px-Tears_of_Steel_poster.jpg',
+    videoUrl: 'https://archive.org/download/TearsOfSteel/TearsOfSteel.mp4',
+    category: 'Ação',
+    type: 'movie',
+    rating: 7.9,
+    year: 2012
+  },
+  {
+    id: '3',
+    title: 'Big Buck Bunny',
+    description: 'Um coelho gigante e gentil decide se vingar de três roedores que o importunaram e maltrataram os animais da floresta.',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_Buck_Bunny_Thumbnail.jpg/800px-Big_Buck_Bunny_Thumbnail.jpg',
+    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    category: 'Comédia',
+    type: 'movie',
+    rating: 8.5,
+    year: 2008
+  },
+  {
+    id: '4',
+    title: 'Cosmos Laundromat',
+    description: 'Em uma ilha deserta, uma ovelha suicida chamada Franck conhece um vendedor misterioso que lhe oferece o mundo em uma lavanderia cósmica.',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cosmos_Laundromat_-_First_Cycle_poster.jpg/800px-Cosmos_Laundromat_-_First_Cycle_poster.jpg',
+    videoUrl: 'https://archive.org/download/CosmosLaundromat/CosmosLaundromat.mp4',
+    category: 'Ficção Científica',
+    type: 'movie',
     rating: 8.8,
-    year: 2023,
+    year: 2015
+  },
+  {
+    id: '5',
+    title: 'Caminandes',
+    description: 'As aventuras de Koro, uma lhama da Patagônia que tenta atravessar uma estrada deserta, enfrentando diversos obstáculos engraçados.',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Caminandes_-_Gran_Dillama_poster.jpg/800px-Caminandes_-_Gran_Dillama_poster.jpg',
+    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    category: 'Comédia',
+    type: 'series',
+    rating: 8.4,
+    year: 2013,
     episodes: [
-      { id: 'e4', title: 'Quando Estiver Perdido na Escuridão', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '81m' },
-      { id: 'e5', title: 'Infectados', videoUrl: 'https://www.w3schools.com/html/movie.mp4', duration: '52m' }
+      { id: 'e1', title: 'Llama Drama', videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', duration: '2m' },
+      { id: 'e2', title: 'Gran Dillama', videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', duration: '3m' },
+      { id: 'e3', title: 'Llamigos', videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', duration: '3m' }
     ]
   },
   {
     id: '6',
-    title: 'Duna: Parte Dois',
-    description: 'Paul Atreides se une a Chani e aos Fremen enquanto busca vingança contra os conspiradores que destruíram sua família.',
-    thumbnail: 'https://picsum.photos/seed/dune/800/450',
-    videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+    title: 'Elephants Dream',
+    description: 'Dois personagens exploram um mundo estranho e mecânico em uma jornada surrealista sobre a natureza da realidade.',
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Elephants_Dream_poster.jpg/800px-Elephants_Dream_poster.jpg',
+    videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     category: 'Ficção Científica',
     type: 'movie',
-    rating: 8.9,
-    year: 2024
-  },
-  {
-    id: '7',
-    title: 'The Boys',
-    description: 'Um grupo de vigilantes se propõe a derrubar super-heróis corruptos que abusam de seus superpoderes.',
-    thumbnail: 'https://picsum.photos/seed/boys/800/450',
-    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    category: 'Ação',
-    type: 'series',
-    rating: 8.7,
-    year: 2019,
-    episodes: [
-      { id: 'e6', title: 'O Nome do Jogo', videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', duration: '60m' },
-      { id: 'e7', title: 'Cereja', videoUrl: 'https://www.w3schools.com/html/movie.mp4', duration: '60m' }
-    ]
-  },
-  {
-    id: '8',
-    title: 'Parasita',
-    description: 'A ganância e a discriminação de classe ameaçam a relação recém-formada entre a rica família Park e o clã Kim.',
-    thumbnail: 'https://picsum.photos/seed/parasite/800/450',
-    videoUrl: 'https://www.w3schools.com/html/movie.mp4',
-    category: 'Drama',
-    type: 'movie',
-    rating: 8.5,
-    year: 2019
+    rating: 7.5,
+    year: 2006
   }
 ];
 
