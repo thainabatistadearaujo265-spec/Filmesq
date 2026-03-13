@@ -18,7 +18,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { MOVIES_DATA, CATEGORIES } from './types';
-import { fetchTrending, fetchByGenre, searchMovies, fetchVideos, getImageUrl, TMDBMovie, GENRES } from './services/tmdbService';
+import { fetchTrending, fetchByGenre, searchMovies, fetchVideos, getImageUrl, getFullMovieUrl, TMDBMovie, GENRES } from './services/tmdbService';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
@@ -27,6 +27,9 @@ export default function App() {
   const [selectedMovie, setSelectedMovie] = useState<TMDBMovie | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [playMode, setPlayMode] = useState<'trailer' | 'full'>('full');
+  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [selectedEpisode, setSelectedEpisode] = useState(1);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -86,17 +89,34 @@ export default function App() {
 
   const featuredMovie = movies.length > 0 ? movies[0] : null;
 
-  const handlePlay = async (movie: TMDBMovie) => {
+  const handlePlay = async (movie: TMDBMovie, mode: 'trailer' | 'full' = 'full') => {
     setSelectedMovie(movie);
-    const url = await fetchVideos(movie.id, movie.media_type || 'movie');
-    // Fallback if no trailer found
-    setVideoUrl(url || 'https://www.w3schools.com/html/mov_bbb.mp4');
+    setPlayMode(mode);
+    
+    if (mode === 'trailer') {
+      const url = await fetchVideos(movie.id, movie.media_type || 'movie');
+      setVideoUrl(url || 'https://www.w3schools.com/html/mov_bbb.mp4');
+    } else {
+      const url = getFullMovieUrl(movie.id, movie.media_type || 'movie', selectedSeason, selectedEpisode);
+      setVideoUrl(url);
+    }
+    
     setIsPlaying(true);
   };
 
   const closePlayer = () => {
     setIsPlaying(false);
     setVideoUrl(null);
+    setSelectedSeason(1);
+    setSelectedEpisode(1);
+  };
+
+  const updateEpisode = (ep: number) => {
+    setSelectedEpisode(ep);
+    if (selectedMovie) {
+      const url = getFullMovieUrl(selectedMovie.id, selectedMovie.media_type || 'movie', selectedSeason, ep);
+      setVideoUrl(url);
+    }
   };
 
   return (
@@ -183,22 +203,28 @@ export default function App() {
               <p className="text-lg text-white/80 mb-8 line-clamp-3 font-light leading-relaxed">
                 {featuredMovie.overview}
               </p>
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={() => handlePlay(featuredMovie)}
-                  className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-lg font-bold hover:bg-white/90 transition-all transform hover:scale-105 active:scale-95"
-                >
-                  <Play className="w-5 h-5 fill-current" /> Assistir
-                </button>
-                <button 
-                  onClick={() => setSelectedMovie(featuredMovie)}
-                  className="flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-8 py-3 rounded-lg font-bold hover:bg-white/30 transition-all"
-                >
-                  <Info className="w-5 h-5" /> Mais Informações
-                </button>
-              </div>
-            </motion.div>
-          </div>
+            <div className="flex items-center gap-4">
+              <button 
+                onClick={() => handlePlay(featuredMovie, 'full')}
+                className="flex items-center gap-2 bg-white text-black px-8 py-3 rounded-lg font-bold hover:bg-white/90 transition-all transform hover:scale-105 active:scale-95"
+              >
+                <Play className="w-5 h-5 fill-current" /> Assistir Filme
+              </button>
+              <button 
+                onClick={() => handlePlay(featuredMovie, 'trailer')}
+                className="flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-8 py-3 rounded-lg font-bold hover:bg-white/30 transition-all"
+              >
+                <Tv className="w-5 h-5" /> Ver Trailer
+              </button>
+              <button 
+                onClick={() => setSelectedMovie(featuredMovie)}
+                className="flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-8 py-3 rounded-lg font-bold hover:bg-white/30 transition-all"
+              >
+                <Info className="w-5 h-5" /> Mais Informações
+              </button>
+            </div>
+          </motion.div>
+        </div>
 
           <div className="absolute bottom-10 right-8 flex items-center gap-4">
             <button 
@@ -335,10 +361,9 @@ export default function App() {
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#151619] via-transparent to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute inset-0 flex items-center justify-center gap-4">
                     <button 
-                      onClick={() => handlePlay(selectedMovie)}
+                      onClick={() => handlePlay(selectedMovie, 'full')}
                       className="w-20 h-20 rounded-full bg-orange-500 flex items-center justify-center hover:scale-110 transition-transform shadow-lg group"
                     >
                       <Play className="w-10 h-10 text-black fill-current ml-2 group-hover:scale-110 transition-transform" />
@@ -372,10 +397,16 @@ export default function App() {
 
                   <div className="flex items-center gap-4 mt-auto">
                     <button 
-                      onClick={() => handlePlay(selectedMovie)}
+                      onClick={() => handlePlay(selectedMovie, 'full')}
                       className="flex-1 bg-white text-black py-4 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-orange-500 transition-all"
                     >
-                      Assistir Agora
+                      Assistir Filme
+                    </button>
+                    <button 
+                      onClick={() => handlePlay(selectedMovie, 'trailer')}
+                      className="flex-1 bg-white/10 text-white py-4 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-white/20 transition-all border border-white/10"
+                    >
+                      Trailer
                     </button>
                     <button className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
                       <Plus className="w-5 h-5" />
@@ -407,9 +438,29 @@ export default function App() {
                 </button>
                 <div>
                   <h3 className="text-xl font-black tracking-tight uppercase italic">{selectedMovie.title || selectedMovie.name}</h3>
+                  {selectedMovie.media_type === 'tv' && playMode === 'full' && (
+                    <p className="text-sm text-white/60 font-medium">Temporada {selectedSeason} • Episódio {selectedEpisode}</p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-4">
+                {selectedMovie.media_type === 'tv' && playMode === 'full' && (
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-lg p-1 border border-white/10">
+                    <button 
+                      onClick={() => updateEpisode(Math.max(1, selectedEpisode - 1))}
+                      className="p-2 hover:bg-white/10 rounded-md transition-all"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <span className="text-xs font-black px-2">EP {selectedEpisode}</span>
+                    <button 
+                      onClick={() => updateEpisode(selectedEpisode + 1)}
+                      className="p-2 hover:bg-white/10 rounded-md transition-all"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
                 <button className="p-2 rounded-full hover:bg-white/10 transition-all">
                   <Info className="w-6 h-6" />
                 </button>

@@ -96,6 +96,15 @@ export async function fetchVideos(id: number, type: 'movie' | 'tv') {
   }
 }
 
+export function getFullMovieUrl(id: number, type: 'movie' | 'tv', season?: number, episode?: number) {
+  // Using common embed providers for educational/demo purposes
+  // Note: These are external services and may contain ads or regional restrictions
+  if (type === 'tv') {
+    return `https://vidsrc.to/embed/tv/${id}/${season || 1}/${episode || 1}`;
+  }
+  return `https://vidsrc.to/embed/movie/${id}`;
+}
+
 export function getImageUrl(path: string) {
   return path ? `${IMAGE_BASE_URL}${path}` : 'https://picsum.photos/seed/movie/800/450';
 }
