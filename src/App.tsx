@@ -468,7 +468,7 @@ export default function App() {
             </div>
 
             <div className="flex-grow relative flex items-center justify-center">
-              {videoUrl?.includes('youtube.com/embed') ? (
+              {videoUrl?.includes('embed') ? (
                 <iframe 
                   className="w-full h-full max-h-screen border-none"
                   src={videoUrl}
